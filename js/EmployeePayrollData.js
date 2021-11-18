@@ -3,7 +3,6 @@ class PersonInfo {
      * setter and getter methods
      * validating the user inputs using regular expression
      */
-
     
     get name() {
         return this._name;
@@ -63,6 +62,8 @@ class PersonInfo {
     set start_date ( start_date ) {
         this._start_date = start_date;
     }
+
+    
 
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
