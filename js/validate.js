@@ -1,4 +1,3 @@
-
 window.addEventListener('DOMContentLoaded', (event) => {
     const name = document.querySelector('#name');
     const textError = document.querySelector('.text-error');
@@ -23,10 +22,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
  });
  
- //create Employee Payroll object On Save
- const save = () => {
+ const save = (event) => {
+    event.preventDefault();
+      event.stopPropagation();
     try {
        let employeePayrollData = createEmployeePayroll();
+       createAndUpdateStorage(employeePayrollData);
     } catch (e) {
        return;
     }
@@ -40,6 +41,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
        setTextValue('.text-error', e);
        throw e;
     }
+    
  
     employeePayrollData.profilePic = getSelectedValues('[name=profile]').pop();
     employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
@@ -48,8 +50,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     employeePayrollData.note = getInputValueById('#notes');
     let date = getInputValueById('#day') + " " +getInputValueById('#month') + " "
                                                        +getInputValueById('#year');
+    console.log(date) ;                                                
     employeePayrollData.start_date = Date.parse(date);
-    alert(employeePayrollData.toString());
+  //  employeePayrollData.start_date = new Date(Date.parse(date));
+    console.log(Date.parse(date));
+    alert(JSON.stringify(employeePayrollData));
     return employeePayrollData;
  }
  
@@ -66,4 +71,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
  const getInputValueById = ( id ) => {
     let value = document.querySelector(id).value;
     return value;
+ }
+ 
+ function createAndUpdateStorage(employeePayrollData) {
+    let employeePayrollList = JSON.parse( localStorage.getItem ("EmployeePayrollList"));
+    if(employeePayrollList != undefined) {
+       employeePayrollList.push(employeePayrollData);
+    } else {
+       employeePayrollList = [employeePayrollData];
+    }
+    alert(employeePayrollList.toString());
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
  }
