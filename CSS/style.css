@@ -7,7 +7,6 @@ body {
     padding: 15px 0;
     background-color:aliceblue;
 }
-
 .header-content {
     display: flex;
     flex-direction: row;
