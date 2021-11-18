@@ -22,9 +22,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
  });
  
- const save = (event) => {
-    event.preventDefault();
-      event.stopPropagation();
+ const save = () => {
     try {
        let employeePayrollData = createEmployeePayroll();
        createAndUpdateStorage(employeePayrollData);
@@ -50,11 +48,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     employeePayrollData.note = getInputValueById('#notes');
     let date = getInputValueById('#day') + " " +getInputValueById('#month') + " "
                                                        +getInputValueById('#year');
-    console.log(date) ;                                                
     employeePayrollData.start_date = Date.parse(date);
-  //  employeePayrollData.start_date = new Date(Date.parse(date));
-    console.log(Date.parse(date));
-    alert(JSON.stringify(employeePayrollData));
+    alert(employeePayrollData.toString());
     return employeePayrollData;
  }
  
@@ -83,4 +78,3 @@ window.addEventListener('DOMContentLoaded', (event) => {
     alert(employeePayrollList.toString());
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
  }
- 
